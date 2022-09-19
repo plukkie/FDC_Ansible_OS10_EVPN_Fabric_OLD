@@ -1,0 +1,172 @@
+
+
+!
+ip vrf Vrf1
+ exit
+!
+
+!
+
+!
+port-group 1/1/1
+ mode eth 25g-4x
+ exit
+!
+port-group 1/1/2
+ mode eth 25g-4x
+ exit
+!
+port-group 1/1/3
+ mode eth 25g-4x
+ exit
+!
+port-group 1/1/4
+ mode eth 100g-1x
+ exit
+!
+port-group 1/1/5
+ mode eth 100g-1x
+ exit
+!
+port-group 1/1/6
+ mode eth 100g-1x
+ exit
+!
+
+!
+
+!
+nve
+ source-interface loopback 1
+ exit
+!
+
+!
+
+!
+evpn
+!
+ evi 1010
+  vni 1010
+  rd auto
+  route-target 1010:1 both
+!
+ evi 1020
+  vni 1020
+  rd auto
+  route-target 1020:1 both
+!
+ evi 999
+  vni 999
+  rd auto
+  route-target 999:1 both
+!
+router-mac 00:01:02:03:04:02
+vrf Vrf1
+  vni 3000
+  route-target 65535:30000 both
+  advertise ipv4 connected
+exit
+!
+!
+
+!
+
+!
+ip virtual-router mac-address 00:00:00:11:22:01
+!
+
+!
+
+!
+virtual-network 1010
+ description vlan:1010_extended_to_switches:os10-LEAF-1_os10-LEAF-2
+ vxlan-vni 1010
+!
+virtual-network 1020
+ description vlan:1020_extended_to_switches:os10-LEAF-1_os10-LEAF-2
+ vxlan-vni 1020
+!
+virtual-network 999
+ description vlan:999_extended_to_switches:os10-LEAF-1_os10-LEAF-2
+ vxlan-vni 999
+!
+
+!
+
+!
+interface virtual-network 1010
+ no shutdown
+ description "vlan:1010_extended_to_switches:os10-LEAF-1_os10-LEAF-2"
+ ip vrf forwarding Vrf1
+ ip address 172.16.1.3/24
+ ip virtual-router address 172.16.1.254
+!
+interface virtual-network 1020
+ no shutdown
+ description "vlan:1020_extended_to_switches:os10-LEAF-1_os10-LEAF-2"
+ ip vrf forwarding Vrf1
+ ip address 172.16.2.3/24
+ ip virtual-router address 172.16.2.254
+!
+interface virtual-network 999
+ no shutdown
+ description "vlan:999_extended_to_switches:os10-LEAF-1_os10-LEAF-2"
+ ip vrf forwarding Vrf1
+ ip address 172.16.0.3/24
+ ip virtual-router address 172.16.0.254
+!
+
+!
+
+!
+interface vlan 999
+ virtual-network 999
+ mtu 9216
+
+!
+
+!
+interface vlan 1010
+ virtual-network 1010
+ mtu 9216
+
+!
+
+!
+interface vlan 1020
+ virtual-network 1020
+ mtu 9216
+
+!
+
+!
+interface vlan 4000
+ mtu 9216
+
+!
+
+!
+vlt-domain 127
+ backup destination 10.204.11.141
+ discovery-interface ethernet1/1/9
+ discovery-interface ethernet1/1/10
+ discovery-interface ethernet1/1/11
+ discovery-interface ethernet1/1/12
+ peer-routing
+ vlt-mac 00:00:00:00:00:02
+!
+
+!
+
+!
+uplink-state-group 1
+ name "Virtual-switch-fail-over"
+ enable
+ downstream ethernet1/1/7
+ downstream ethernet1/1/8
+ upstream ethernet1/1/1
+ upstream VLTi
+!
+
+!
