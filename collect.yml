@@ -1,0 +1,18 @@
+---
+- hosts:
+  - all
+  gather_facts: false
+  connection: ansible.netcommon.network_cli
+
+  tasks:
+   - name: Run cli command and display results
+     block:
+     - name: sh version
+       ansible.netcommon.cli_command:
+         command: sh ver
+       register: result
+     - name: Display result
+       debug:
+         var: result
+     when: ansible_network_os == 'dellemc.os10.os10'
+
