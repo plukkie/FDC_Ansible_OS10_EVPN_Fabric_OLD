@@ -5,19 +5,30 @@
   collections:
     - dellemc.os10
 
+  vars:
+    pings: 15
+
   tasks: 
     - name: Run connectivity ping tests
       os10_command:
         commands:
-          - ping vrf Vrf1 -c5 172.16.1.11
-          - ping vrf Vrf1 -c5 172.16.1.12
-          - ping vrf Vrf1 -c5 172.16.2.11
-          - ping vrf Vrf1 -c5 172.16.2.12
-          - ping vrf Vrf1 -c5 172.16.1.13
-          - ping vrf Vrf1 -c5 1.2.3.4
+          - ping vrf Vrf1 -c{{ pings }} {{ item }} 
+
+        retries: 2
+      
+        wait_for:
+          - result[0] contains "{{ pings }} packets transmitted, {{ pings }} received, 0% packet loss" 
+
+      with_items:
+         - 172.16.1.11
+         - 172.16.1.12
+         - 172.16.2.11
+         - 172.16.2.12
 
       register: ping_log
       
-    - debug:
-        var: ping_log.stdout_lines
+    - name: Print log results of Ping tests
+      debug:
+        var: ping_log
 
+   
