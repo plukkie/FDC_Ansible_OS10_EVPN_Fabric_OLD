@@ -6,7 +6,7 @@
     - dellemc.os10
 
   vars:
-    pings: 15
+    pings: 2
 
   tasks: 
     - name: Run connectivity ping tests
