@@ -60,35 +60,22 @@ evpn
   route-target 65535:30000 both
   advertise ipv4 connected
   advertise ipv4 bgp
-
-exit
-!
-!
-
-!
-
+  exit
 !
 ip virtual-router mac-address 00:00:00:11:22:01
 !
-
-!
-
-!
-virtual-network 1010
+Virtual-network 1010
  description vlan:1010_extended_to_switches:os10-LEAF-3_os10-LEAF-4
  vxlan-vni 1010
 !
-virtual-network 1020
+Virtual-network 1020
  description vlan:1020_extended_to_switches:os10-LEAF-3_os10-LEAF-4
  vxlan-vni 1020
 !
-virtual-network 999
+Virtual-network 999
  description vlan:999_extended_to_switches:os10-LEAF-3_os10-LEAF-4
  vxlan-vni 999
-!
-
-!
-
+ exit
 !
 interface virtual-network 1010
  no shutdown
@@ -111,36 +98,20 @@ interface virtual-network 999
  ip address 172.16.0.1/24
  ip virtual-router address 172.16.0.254
 !
-
-!
-
-!
-interface vlan 999
+interface Vlan 999
  virtual-network 999
  mtu 9216
-
 !
-
-!
-interface vlan 1010
+interface Vlan 1010
  virtual-network 1010
  mtu 9216
-
 !
-
-!
-interface vlan 1020
+interface Vlan 1020
  virtual-network 1020
  mtu 9216
-
 !
-
-!
-interface vlan 4000
+interface Vlan 4000
  mtu 9216
-
-!
-
 !
 vlt-domain 12
  backup destination 10.204.11.139
