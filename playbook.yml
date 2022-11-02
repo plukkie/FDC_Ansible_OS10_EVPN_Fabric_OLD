@@ -13,12 +13,14 @@
 
 
   pre_tasks:
-  - name: Wait max {{ waittime }} secs for hosts to become reachable
+  - name: Wait max {{ connection_timeout }} secs for hosts to become reachable
     any_errors_fatal: true
     os10_command:
       commands:
         - show version
 
+      provider:
+        timeout: "{{ connection_timeout }}"
       interval: 5
       retries: 24
       wait_for:
@@ -52,6 +54,5 @@
 
   vars:
   - preconf_path: templates/{{ hostname }}.j2.pre
-  - connect_interval: 5
-  - connect_retries: 24 
   - waittime: "{{ connect_interval * connect_retries }}"
+  - connection_timeout: 60
