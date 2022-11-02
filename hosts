@@ -26,3 +26,6 @@ os10-LEAF-4
 [spines]
 os10-SPINE-1
 os10-SPINE-2
+
+[simulators]
+os10-switch12 ansible_host=10.204.11.143 ansible_network_os="dellemc.os10.os10"

@@ -1,5 +1,5 @@
 ---
-- hosts: os10-LEAF-1
+- hosts: os10-switch12
   connection: network_cli
   gather_facts: false
   collections:
@@ -13,18 +13,22 @@
       any_errors_fatal: true
       os10_command:
         commands:
-          - ping vrf Vrf1 -c{{ pings }} {{ item }} 
+          - ping vrf vlan1010 -c{{ pings }} {{ item }} 
 
         retries: 2
       
         wait_for:
-          - result[0] contains "{{ pings }} packets transmitted, {{ pings }} received, 0% packet loss" 
+          - result[0] contains "{{ pings }} packets transmitted, {{ pings }} received"
+          - result[0] contains ", 0% packet loss"
 
       with_items:
          - 172.16.1.11
          - 172.16.1.12
          - 172.16.2.11
          - 172.16.2.12
+         - 200.200.200.11
+         - 100.100.100.11
+         - 100.100.100.12
 
       register: ping_log
       
