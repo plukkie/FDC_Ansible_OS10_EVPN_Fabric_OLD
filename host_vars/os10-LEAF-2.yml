@@ -194,7 +194,24 @@ os10_interface:
     vrf: Vrf1
   vlan 1902:
     vrf: Vrf1
-
+  virtual-network 1010:
+    vrf: Vrf1
+    ip_and_mask: 172.16.1.2/24
+    virtual_gateway_ip: "172.16.1.254"
+    admin: up
+    desc: "vlan:1010_extended_to_switches:os10-LEAF-3_os10-LEAF-4"
+  virtual-network 1020:
+    vrf: Vrf1
+    ip_and_mask: 172.16.2.2/24
+    virtual_gateway_ip: "172.16.2.254"
+    admin: up
+    desc: "vlan:1020_extended_to_switches:os10-LEAF-3_os10-LEAF-4"
+  virtual-network 999:
+    vrf: Vrf1
+    ip_and_mask: 172.16.0.2/24
+    virtual_gateway_ip: "172.16.0.254"
+    admin: up
+    desc: "vlan:999_extended_to_switches:os10-LEAF-3_os10-LEAF-4"
 os10_lldp:
   enable: true
 os10_ntp:

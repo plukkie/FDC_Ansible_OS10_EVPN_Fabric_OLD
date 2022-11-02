@@ -64,6 +64,7 @@ evpn
 !
 ip virtual-router mac-address 00:00:00:11:22:01
 !
+!	
 Virtual-network 1010
  description vlan:1010_extended_to_switches:os10-LEAF-3_os10-LEAF-4
  vxlan-vni 1010
@@ -77,26 +78,6 @@ Virtual-network 999
  vxlan-vni 999
  exit
 !
-interface virtual-network 1010
- no shutdown
- description "vlan:1010_extended_to_switches:os10-LEAF-3_os10-LEAF-4"
- ip vrf forwarding Vrf1
- ip address 172.16.1.1/24
- ip virtual-router address 172.16.1.254
-!
-interface virtual-network 1020
- no shutdown
- description "vlan:1020_extended_to_switches:os10-LEAF-3_os10-LEAF-4"
- ip vrf forwarding Vrf1
- ip address 172.16.2.1/24
- ip virtual-router address 172.16.2.254
-!
-interface virtual-network 999
- no shutdown
- description "vlan:999_extended_to_switches:os10-LEAF-3_os10-LEAF-4"
- ip vrf forwarding Vrf1
- ip address 172.16.0.1/24
- ip virtual-router address 172.16.0.254
 !
 interface Vlan 999
  virtual-network 999

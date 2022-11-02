@@ -51,6 +51,7 @@
   - os10_logging
   - os10_copy_config
   - os10_vrrp
+  - os10_vxlan
 
   vars:
   - preconf_path: templates/{{ hostname }}.j2.pre

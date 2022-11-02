@@ -87,33 +87,6 @@ virtual-network 999
 !
 
 !
-
-!
-interface virtual-network 1010
- no shutdown
- description "vlan:1010_extended_to_switches:os10-LEAF-1_os10-LEAF-2"
- ip vrf forwarding Vrf1
- ip address 172.16.1.4/24
- ip virtual-router address 172.16.1.254
-!
-interface virtual-network 1020
- no shutdown
- description "vlan:1020_extended_to_switches:os10-LEAF-1_os10-LEAF-2"
- ip vrf forwarding Vrf1
- ip address 172.16.2.4/24
- ip virtual-router address 172.16.2.254
-!
-interface virtual-network 999
- no shutdown
- description "vlan:999_extended_to_switches:os10-LEAF-1_os10-LEAF-2"
- ip vrf forwarding Vrf1
- ip address 172.16.0.4/24
- ip virtual-router address 172.16.0.254
-!
-
-!
-
-!
 interface vlan 999
  virtual-network 999
  mtu 9216
