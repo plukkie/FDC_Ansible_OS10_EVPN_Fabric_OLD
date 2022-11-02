@@ -10,6 +10,7 @@
 
   tasks: 
     - name: Run connectivity ping tests
+      any_errors_fatal: true
       os10_command:
         commands:
           - ping vrf Vrf1 -c{{ pings }} {{ item }} 

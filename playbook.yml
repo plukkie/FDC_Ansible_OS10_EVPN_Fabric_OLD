@@ -9,11 +9,27 @@
   - os10-LEAF-2
   - os10-LEAF-3
   - os10-LEAF-4
+
+
+
   pre_tasks:
+  - name: Wait for hosts are reachable
+    any_errors_fatal: true
+    os10_command:
+      commands:
+        - show version
+
+      interval: 5
+      retries: 5
+      wait_for:
+        - result[0] contains "Up Time:"
+
+
   - name: PreConfigs
     os10_config:
       src: '{{ hostname }}.j2.pre'
     when: preconf_path is exists
+
   roles:
   - os10_interface
   - os10_vlan
@@ -33,5 +49,6 @@
   - os10_logging
   - os10_copy_config
   - os10_vrrp
+
   vars:
   - preconf_path: templates/{{ hostname }}.j2.pre
