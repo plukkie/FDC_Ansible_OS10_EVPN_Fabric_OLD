@@ -9,7 +9,7 @@ import sys
 #from host_seedfile import network_devices
 #from host_config_file import host_conf
 
-inventoryfile = 'hosts'
+inventoryfile = 'hostsprod'
 hoststr = 'ansible_host='
 UN = 'admin'
 PW = 'admin'

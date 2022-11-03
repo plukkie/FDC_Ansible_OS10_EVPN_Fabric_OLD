@@ -4,8 +4,8 @@
   gather_facts: false
   hosts:
   - os10-SPINE-1
-  - os10-LEAF-1
   - os10-SPINE-2
+  - os10-LEAF-1
   - os10-LEAF-2
   - os10-LEAF-3
   - os10-LEAF-4
@@ -13,20 +13,6 @@
 
 
   pre_tasks:
-  - name: Wait max {{ connection_timeout }} secs for hosts to become reachable
-    any_errors_fatal: true
-    os10_command:
-      commands:
-        - show version
-
-      provider:
-        timeout: "{{ connection_timeout }}"
-      interval: 5
-      retries: 24
-      wait_for:
-        - result[0] contains "Up Time:"
-
-
   - name: PreConfigs
     os10_config:
       src: '{{ hostname }}.j2.pre'
