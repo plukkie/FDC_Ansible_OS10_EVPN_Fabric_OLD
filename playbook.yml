@@ -41,5 +41,3 @@
 
   vars:
   - preconf_path: templates/{{ hostname }}.j2.pre
-  - waittime: "{{ connect_interval * connect_retries }}"
-  - connection_timeout: 60
